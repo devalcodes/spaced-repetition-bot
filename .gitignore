@@ -1,0 +1,18 @@
+# Local configuration and secrets
+.env
+
+# Runtime database
+study_memory.db
+study_memory.db-journal
+study_memory.db-wal
+study_memory.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
