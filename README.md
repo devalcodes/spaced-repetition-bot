@@ -1,57 +1,85 @@
-# ReviseBot — 1-3-7-21 Spaced Repetition Telegram Bot
+# ReviseBot
 
-A tiny, self-hosted Telegram study companion that listens to what you learned, gives it a short title, and schedules four revisions on the **1st, 3rd, 7th, and 21st day** after you study it.
+<p align="center">
+  <img src="assets/banner.png" alt="ReviseBot, a spaced repetition Telegram bot" width="100%">
+</p>
 
-No web dashboard. No note-taking friction. Just send a voice note or text, confirm the title, and get one clean revision digest every morning at 9:00 AM.
+<p align="center">
+  <a href="https://github.com/devalcodes/spaced-repetition-bot"><img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white"></a>
+  <a href="https://core.telegram.org/bots/api"><img alt="Telegram Bot" src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white"></a>
+  <img alt="Local Whisper" src="https://img.shields.io/badge/STT-Local%20Whisper-34D399?style=for-the-badge">
+  <img alt="DeepSeek V4.1 Flash" src="https://img.shields.io/badge/Brain-DeepSeek%20V4.1%20Flash-8B5CF6?style=for-the-badge">
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <strong>Turn a voice note into four perfectly timed revisions.</strong><br>
+  A self-hosted Telegram study bot built on the 1, 3, 7 and 21-day forgetting curve.
+</p>
+
+<p align="center">
+  <a href="#quickstart"><strong>Quickstart</strong></a> &nbsp;·&nbsp;
+  <a href="#one-paste-ai-setup"><strong>AI setup</strong></a> &nbsp;·&nbsp;
+  <a href="#commands"><strong>Commands</strong></a> &nbsp;·&nbsp;
+  <a href="#deploy"><strong>Deploy</strong></a>
+</p>
 
 ---
 
-## How it works
+## Why ReviseBot
 
-The Ebbinghaus forgetting curve shows that memory drops fastest right after learning. Reviewing at increasing intervals interrupts that forgetting.
+Most study systems give you more things to manage: cards, decks, tags, dashboards, reminders.
+
+ReviseBot does the opposite. You tell it what you learned. It gives the topic a short title, asks you to confirm it, and schedules four reviews. Then it gets out of your way until the morning digest.
+
+No dashboard. No manual scheduling. No 21 separate notifications.
+
+---
+
+## See it in action
+
+<p align="center">
+  <img src="assets/preview.png" alt="ReviseBot conversation and morning digest" width="100%">
+</p>
+
+One conversation creates the whole revision cycle. One message each morning tells you what to revisit.
+
+---
+
+## The 1-3-7-21 method
+
+<p align="center">
+  <img src="assets/cycle.png" alt="The 1, 3, 7 and 21-day revision curve" width="100%">
+</p>
+
+The Ebbinghaus forgetting curve shows that memory drops fastest right after learning. A review placed just before the drop interrupts that forgetting.
 
 | When | What happens |
 |---|---|
-| Day 0 | You study a topic and tell the bot about it. |
-| Day 1 | First revision, while the memory is fresh. |
-| Day 3 | Second revision, just as recall starts to weaken. |
-| Day 7 | Third revision, rebuilding the memory with less effort. |
-| Day 21 | Final revision, moving the topic toward long-term memory. |
+| Day 0 | You study something and tell the bot. |
+| Day 1 | First review, while the memory is fresh. |
+| Day 3 | Second review, as recall starts to weaken. |
+| Day 7 | Third review, rebuilding the memory with less effort. |
+| Day 21 | Final review, moving the topic toward long-term memory. |
 
-If you study **Thermodynamics Second Law** on `29 Oct 2026`, the bot schedules:
-
-- Day 1 — `30 Oct 2026`
-- Day 3 — `01 Nov 2026`
-- Day 7 — `05 Nov 2026`
-- Day 21 — `19 Nov 2026`
-
-Every morning at your configured reminder time, the bot sends **one consolidated message** listing only the topics due that day — no spam, no 21 separate reminders.
-
-### What makes it feel natural
-
-- **Voice notes are first-class.** Send a Telegram voice note; it is transcribed, summarized, and titled automatically.
-- **You approve the title.** The bot proposes a short 3–4 word title first. Reply `yes`, or correct it (`call it Nernst Equation Basics`).
-- **Ask questions later.** “What do I need to revise today?”, “What was my note on haloalkanes?”, or “Delete the thermodynamics topic” all work conversationally.
-- **Provider-agnostic brain.** DeepSeek, OpenAI, Gemini, Groq, OpenRouter, or a local Ollama model — all through one OpenAI-compatible client.
-- **Local-first option.** Offline voice transcription via `faster-whisper`; no system FFmpeg installation required.
+Study once. Review four times. Remember for longer.
 
 ---
 
-## Let an AI agent install it for you
+## What you get
 
-Not comfortable with terminals? Open this folder in Claude Code, Codex, Cursor, Windsurf, or DeepSeek Harness, then paste the ready-made prompt from [AI_SETUP_PROMPT.md](AI_SETUP_PROMPT.md).
-
-The agent will find the project, guide you through creating a Telegram bot with @BotFather, collect your LLM key and timezone, write them into `.env`, install dependencies, test text and voice notes, and help you set up auto-restart for production.
+- **Voice first.** Send a Telegram voice note. Local Whisper transcribes it, and the bot turns it into a clean study topic.
+- **One morning digest.** Every due topic appears in a single message at your chosen time. No notification spam.
+- **A brain you control.** Use DeepSeek, OpenAI, Gemini, Groq, OpenRouter, or a local Ollama model.
+- **Local speech by default.** Audio is transcribed on your machine with `faster-whisper`. No extra API key and no system FFmpeg.
+- **Your data stays yours.** Topics, revision dates, drafts, and chat context live in one local SQLite file.
+- **It fits in your pocket.** One Python process, one SQLite file, no inbound ports, no web dashboard to maintain.
 
 ---
 
-## 2-Minute Quickstart
+## Quickstart
 
-### Prerequisites
-
-- Python **3.10 or newer**
-- A Telegram bot token from [@BotFather](https://t.me/BotFather)
-- An API key for any OpenAI-compatible LLM provider (DeepSeek is the default)
+**You need:** Python 3.10 or newer, a Telegram bot token, and an API key for one OpenAI-compatible LLM provider.
 
 ### 1. Clone and install
 
@@ -60,114 +88,125 @@ git clone https://github.com/devalcodes/spaced-repetition-bot.git
 cd spaced-repetition-bot
 
 python -m venv .venv
-# macOS / Linux:
+
+# macOS / Linux
 source .venv/bin/activate
-# Windows PowerShell:
+
+# Windows PowerShell
 # .venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
 ```
 
-### 2. Create your `.env`
+### 2. Create your Telegram bot
+
+1. Open [@BotFather](https://t.me/BotFather) in Telegram.
+2. Send `/newbot`.
+3. Choose a display name and a username ending in `bot`.
+4. Copy the token BotFather gives you.
+
+### 3. Create `.env`
 
 ```bash
-# macOS / Linux
 cp .env.example .env
-
-# Windows PowerShell
-# Copy-Item .env.example .env
 ```
 
-Open `.env` and set at least these three values:
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Open `.env` and fill in at least:
 
 ```env
-TELEGRAM_BOT_TOKEN=123456789:your_real_bot_token
-LLM_API_KEY=your_deepseek_api_key
+TELEGRAM_BOT_TOKEN=your_bot_token
+TIMEZONE=Asia/Kolkata
+REMINDER_HOUR=9
+REMINDER_MINUTE=0
+
+LLM_BASE_URL=https://api.deepseek.com
+LLM_API_KEY=your_deepseek_key
 LLM_MODEL=deepseek-flash
+
+STT_MODE=local
+LOCAL_WHISPER_MODEL=base
 ```
 
-### 3. Run
+### 4. Run
 
 ```bash
 python main.py
 ```
 
-Open your bot in Telegram, press **Start**, and send:
+You should see:
 
 ```text
-I studied the second law of thermodynamics today — entropy always increases in an isolated system.
+Connected to Telegram as @your_bot_username
+LLM model: deepseek-flash at https://api.deepseek.com
+STT: local faster-whisper model=base
 ```
 
-The bot proposes a short title. Confirm it. Your 1-3-7-21 cycle is now scheduled.
+Open your bot, press **Start**, and send:
 
-> **First voice note:** with `STT_MODE=local`, the bot downloads the selected Whisper model once on first use. `base` is a good balance of speed and accuracy on CPU.
+```text
+I studied the second law of thermodynamics today. Entropy always increases in an isolated system.
+```
+
+Confirm the proposed title. Your four revision dates are now scheduled.
+
+> **First voice note:** with `STT_MODE=local`, the Whisper model downloads once on first use. After that, transcription is fully offline.
 
 ---
 
-## Choose your LLM
+## One-paste AI setup
 
-All presets use the same `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL` variables. Change the block in `.env` and restart the bot.
+Not comfortable with terminal commands? Let an AI coding agent do the full setup.
 
-### DeepSeek (default — latest Flash model)
+1. Open this folder in **Claude Code**, **Codex**, **Cursor**, **Windsurf**, or **DeepSeek Harness**.
+2. Open [AI_SETUP_PROMPT.md](AI_SETUP_PROMPT.md).
+3. Copy the prompt and paste it into the agent.
+
+The agent will find the project, guide you through BotFather, ask for your API key, write `.env` safely, install dependencies, test text and voice notes, and help you set up production auto-restart.
+
+---
+
+## Choose your AI
+
+Any OpenAI-compatible endpoint works. Pick one block and place it in `.env`.
+
+| Provider | Base URL | Model |
+|---|---|---|
+| **DeepSeek direct** | `https://api.deepseek.com` | `deepseek-flash` |
+| **OpenRouter** | `https://openrouter.ai/api/v1` | `deepseek/deepseek-v4.1-flash-1017` |
+| **OpenAI** | `https://api.openai.com/v1` | `gpt-4o-mini` |
+| **Google Gemini** | `https://generativelanguage.googleapis.com/v1beta/openai/` | `gemini-2.5-flash` |
+| **Groq** | `https://api.groq.com/openai/v1` | `llama-3.3-70b-versatile` |
+| **Local Ollama** | `http://localhost:11434/v1` | `llama3.1` |
+
+DeepSeek direct example:
 
 ```env
 LLM_BASE_URL=https://api.deepseek.com
-LLM_API_KEY=your_deepseek_api_key
+LLM_API_KEY=your_deepseek_key
 LLM_MODEL=deepseek-flash
 ```
 
-### OpenAI
-
-```env
-LLM_BASE_URL=https://api.openai.com/v1
-LLM_API_KEY=sk-...
-LLM_MODEL=gpt-4o-mini
-```
-
-### Google Gemini (OpenAI-compatible endpoint)
-
-```env
-LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
-LLM_API_KEY=your_gemini_api_key
-LLM_MODEL=gemini-2.5-flash
-```
-
-### Groq
-
-```env
-LLM_BASE_URL=https://api.groq.com/openai/v1
-LLM_API_KEY=gsk_...
-LLM_MODEL=llama-3.3-70b-versatile
-```
-
-### OpenRouter (DeepSeek V4.1 Flash)
+OpenRouter example:
 
 ```env
 LLM_BASE_URL=https://openrouter.ai/api/v1
-LLM_API_KEY=sk-or-...
+LLM_API_KEY=your_openrouter_key
 LLM_MODEL=deepseek/deepseek-v4.1-flash-1017
 ```
 
-### Local Ollama
-
-```bash
-ollama pull llama3.1
-ollama serve
-```
-
-```env
-LLM_BASE_URL=http://localhost:11434/v1
-LLM_API_KEY=ollama
-LLM_MODEL=llama3.1
-```
-
-Any non-empty key works for Ollama. The bot never contacts a provider other than the one configured in `LLM_BASE_URL`.
+Ollama does not need a real key. Any non-empty value works.
 
 ---
 
-## Voice transcription: local or cloud
+## Voice notes
 
-### Local, free, offline (default)
+### Local and offline (default)
 
 ```env
 STT_MODE=local
@@ -175,98 +214,118 @@ LOCAL_WHISPER_MODEL=base
 LOCAL_WHISPER_LOCAL_FILES_ONLY=false
 ```
 
-Uses `faster-whisper` on CPU with `compute_type="int8"`. Its bundled PyAV handles Telegram's `.ogg` files, so **you do not need to install FFmpeg**. The model is lazy-loaded only when the first voice note arrives. Try `tiny`, `base`, `small`, or `medium` for different speed/accuracy tradeoffs.
+Uses `faster-whisper` on CPU with `int8`. Telegram `.ogg` files are decoded by bundled PyAV, so **you do not need system FFmpeg**.
 
-If the model is already downloaded, point directly at its folder and forbid downloads:
+If the model is already cached and you want to guarantee no downloads:
 
 ```env
 STT_MODE=local
-LOCAL_WHISPER_MODEL=C:/Users/you/.cache/huggingface/hub/models--Systran--faster-whisper-base/snapshots/<snapshot-hash>
+LOCAL_WHISPER_MODEL=C:/Users/you/.cache/huggingface/hub/models--Systran--faster-whisper-base/snapshots/your-snapshot
 LOCAL_WHISPER_LOCAL_FILES_ONLY=true
 ```
 
-The folder must contain `model.bin`, `config.json`, `tokenizer.json`, and `vocabulary.txt`. With `LOCAL_WHISPER_LOCAL_FILES_ONLY=true`, the bot never contacts Hugging Face.
+The folder must contain `model.bin`, `config.json`, `tokenizer.json`, and `vocabulary.txt`.
 
-### Cloud Whisper API
+### Cloud Whisper (optional)
 
 ```env
 STT_MODE=api
 STT_BASE_URL=https://api.groq.com/openai/v1
-STT_API_KEY=your_groq_api_key
+STT_API_KEY=your_groq_key
 STT_MODEL=whisper-large-v3-turbo
 ```
 
-This works with Groq Whisper, OpenAI Whisper, or any compatible `/audio/transcriptions` endpoint. OpenAI example:
-
-```env
-STT_MODE=api
-STT_BASE_URL=https://api.openai.com/v1
-STT_API_KEY=sk-...
-STT_MODEL=whisper-1
-```
-
-> In local mode, audio never leaves your machine. In API mode, the voice file is uploaded to your chosen STT provider. The LLM receives transcripts, summaries, and scheduling data — not raw audio.
-
----
-
-## Daily digest configuration
-
-```env
-TIMEZONE=Asia/Kolkata
-REMINDER_HOUR=9
-REMINDER_MINUTE=0
-```
-
-`TIMEZONE` accepts any IANA timezone name, such as `Europe/London`, `America/New_York`, or `Asia/Tokyo`. The bundled `tzdata` package provides timezone data on systems (including Windows) that may lack it.
-
-The job is registered with Telegram's `JobQueue` when the bot starts. Keep the bot process running for reminders to fire.
-
----
-
-## Demo commands
-
-Want to see the 9:00 AM experience immediately, without waiting?
-
-1. Send `/seed_demo`
-   Creates three realistic topics whose Day 1, Day 3, and Day 7 revisions are due **today**.
-2. Send `/test_morning`
-   Sends the exact consolidated morning digest to the current chat right now.
-
-> `/seed_demo` clears that chat's existing saved topics and revisions first. It is intended for testing and video demos, not daily use.
-
-### Example digest
-
-```text
-☀️ Good morning! Here is your revision lineup for today (29 Oct 2026):
-
-• Thermodynamics Second Law (Day 1 Revision)
-• Electrochemistry Nernst Equation (Day 3 Revision)
-• Organic Haloalkanes (Day 7 Revision)
-
-Reply anytime if you have doubts on these topics or want to log what you study today!
-```
+Works with Groq Whisper, OpenAI Whisper, or any compatible transcription endpoint.
 
 ---
 
 ## Commands
 
-| Command | Purpose |
+| Command | What it does |
 |---|---|
-| `/start` | Welcome, method overview, and instructions. |
-| `/today` | Show revisions due today for this chat. |
+| `/start` | Welcome message and a short explanation of the method. |
+| `/today` | Show revisions due today. |
 | `/schedule` | Show every saved topic with all four revision dates. |
 | `/seed_demo` | Replace this chat's topics with three demo topics due today. |
-| `/test_morning` | Send today's 9:00 AM digest immediately. |
+| `/test_morning` | Send today's morning digest immediately. |
 
-You can also talk to the bot without commands:
+You can also talk normally:
 
-- “I studied SN1 and SN2 reactions in haloalkanes today.”
-- “Yes, save it.”
-- “Call it Haloalkane Substitution instead.”
-- “What do I need to revise today?”
-- “What was my note on the Nernst equation?”
-- “Rename thermodynamics to Second Law Basics.”
-- “Delete the electrochemistry topic.”
+```text
+I studied SN1 and SN2 reactions in haloalkanes today.
+Yes, save it.
+Call it Haloalkane Substitution instead.
+What do I need to revise today?
+What was my note on the Nernst equation?
+Delete the electrochemistry topic.
+```
+
+> `/seed_demo` removes existing topics for that chat. Use it for testing and demos only.
+
+---
+
+## Deploy
+
+The bot uses long polling, so it needs no inbound ports or public domain. Keep the process running and the machine awake at your reminder time.
+
+### Linux with systemd
+
+```ini
+[Unit]
+Description=ReviseBot Telegram study bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=revisebot
+WorkingDirectory=/opt/revisebot
+ExecStart=/opt/revisebot/.venv/bin/python main.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now revisebot
+sudo systemctl status revisebot
+```
+
+### Windows
+
+Use Task Scheduler or NSSM to run `.venv\Scripts\python.exe main.py` from the project folder at login or boot. Send logs to a file so failures are visible.
+
+### Production checklist
+
+- Run exactly one bot instance per token. A second instance causes a `409 Conflict`.
+- Back up `study_memory.db` regularly.
+- Keep `.env` private and rotate keys if it is ever exposed.
+- The daily job is held in memory. If the bot is offline at reminder time, that digest is not replayed automatically.
+- No inbound firewall ports are needed.
+
+---
+
+## Configuration
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `TELEGRAM_BOT_TOKEN` | required | Bot token from BotFather. |
+| `TIMEZONE` | `Asia/Kolkata` | Any IANA timezone. |
+| `REMINDER_HOUR` | `9` | Daily digest hour, 0 to 23. |
+| `REMINDER_MINUTE` | `0` | Daily digest minute, 0 to 59. |
+| `LLM_BASE_URL` | `https://api.deepseek.com` | OpenAI-compatible LLM endpoint. |
+| `LLM_API_KEY` | required | Key for your LLM provider. |
+| `LLM_MODEL` | `deepseek-flash` | Model name. |
+| `STT_MODE` | `local` | `local` or `api`. |
+| `LOCAL_WHISPER_MODEL` | `base` | Model name or local folder path. |
+| `LOCAL_WHISPER_LOCAL_FILES_ONLY` | `false` | Set to `true` to forbid model downloads. |
+| `STT_BASE_URL` | `https://api.openai.com/v1` | Cloud transcription endpoint. |
+| `STT_API_KEY` | empty | Required only when `STT_MODE=api`. |
+| `STT_MODEL` | `whisper-1` | Cloud transcription model. |
 
 ---
 
@@ -274,78 +333,60 @@ You can also talk to the bot without commands:
 
 ```text
 spaced-repetition-bot/
-├── .env.example      # Copy to .env and configure
-├── .gitignore        # Keeps .env and local data out of Git
-├── AI_SETUP_PROMPT.md # Copy-paste prompt for an AI coding agent
-├── requirements.txt  # Runtime dependencies
+├── assets/              # README banner, preview, and timeline graphics
+├── .env.example         # Configuration template
+├── .gitignore
+├── AI_SETUP_PROMPT.md   # Copy-paste setup prompt for AI coding agents
+├── LICENSE
 ├── README.md
-├── database.py       # SQLite schema and all data access
-├── transcriber.py    # Local faster-whisper / cloud Whisper adapter
-├── agent.py          # LLM prompt, tools, and tool-calling loop
-├── scheduler.py      # Morning digest formatter and JobQueue job
-└── main.py           # Telegram handlers, commands, and startup
+├── database.py          # SQLite schema and data access
+├── transcriber.py       # Local and API speech-to-text
+├── agent.py             # LLM prompt, tools, and tool-calling loop
+├── scheduler.py         # Morning digest formatter and JobQueue job
+├── main.py              # Telegram handlers, commands, and startup
+└── requirements.txt
 ```
 
-All study data lives in `study_memory.db`, created automatically next to the code on first run. Back it up by copying that single file.
+Database file at runtime: `study_memory.db`
 
 ---
 
 ## Troubleshooting
 
-**The bot is running and polling, but never replies**
-Check the startup log line:
+**`401 Authentication Fails`**
+The LLM rejected `LLM_API_KEY`. Create a fresh key with your provider and restart. Speech-to-text is not the problem.
 
-```text
-Connected to Telegram as @your_bot_username (bot id ...)
-```
+**The bot is running but never replies**
+Check the startup log for the connected username. If it is not the bot you are messaging, a stale `TELEGRAM_BOT_TOKEN` is overriding `.env`. The project loads `.env` with `override=True`, so restart the process.
 
-Message **that exact bot**. If the username is not the one in your `.env`, a stale `TELEGRAM_BOT_TOKEN` may be set in your Windows user environment. This project loads `.env` with `override=True`, so it wins on the next restart. You can also clear the old variable with:
-
-```powershell
-[Environment]::SetEnvironmentVariable("TELEGRAM_BOT_TOKEN", $null, "User")
-```
+**`409 Conflict`**
+Another instance is polling the same token. Stop all other copies.
 
 **`JobQueue is unavailable`**
-Install with the extras included in the requirements file:
+Install the requirements again. The file includes `python-telegram-bot[job-queue]`.
 
-```bash
-pip install "python-telegram-bot[job-queue]>=21.5"
-```
+**Local Whisper fails**
+Verify `LOCAL_WHISPER_MODEL` points to a folder containing `model.bin`, or set it to `base` and let the first run download the model.
 
-**`TELEGRAM_BOT_TOKEN is missing`**
-Copy `.env.example` to `.env` (not `.env.example`), add your BotFather token, and restart from the project directory.
-
-**The bot replies but no morning message arrives**
-Confirm the process is still running, check `TIMEZONE`, and verify there is a revision scheduled for today with `/today`.
-
-**`401 Authentication Fails` from DeepSeek**
-Speech-to-text is not the problem in this case. The LLM rejected `LLM_API_KEY`. Create a fresh key at [platform.deepseek.com](https://platform.deepseek.com/api_keys), replace `LLM_API_KEY` in `.env`, and restart the bot.
-
-**Voice note says it could not process the audio**
-For local mode, the first run may still be downloading the Whisper model — check the logs and try again. For API mode, verify `STT_API_KEY`, `STT_BASE_URL`, and `STT_MODEL`.
-
-**Gemini returns 404**
-Keep the trailing slash in the Gemini base URL: `https://generativelanguage.googleapis.com/v1beta/openai/`.
-
-**Ollama connection refused**
-Run `ollama serve`, confirm the model is pulled, and use `http://localhost:11434/v1` as the base URL.
-
-**Windows PowerShell does not run the virtual environment**
-If script execution is blocked for the current session:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.venv\Scripts\Activate.ps1
-```
+**The morning digest did not arrive**
+Confirm the process was running at reminder time and the timezone is correct. The job does not replay missed digests.
 
 ---
 
-## Design notes
+## Privacy
 
-- The database uses `sqlite3` with `PRAGMA foreign_keys = ON`; deleting a topic cascades to its four revisions.
-- Titles are kept to 3–4 words for a clean daily digest and easy recall.
-- Chat history is trimmed to the latest 12 messages per chat so prompts remain small and cheap.
-- Voice transcription runs in a worker thread, so CPU-bound Whisper work never blocks Telegram updates.
-- The agent can stage, confirm, inspect, rename, and delete topics through five typed tools. It cannot invent revision dates: all dates come from SQLite.
+- No telemetry, analytics, or third-party tracking.
+- Study data and conversation history stay in local SQLite.
+- Local Whisper keeps audio on your machine.
+- If you use `STT_MODE=api`, the voice file is sent to your chosen transcription provider.
+- Your LLM provider receives the text needed to title, summarize, and schedule topics.
 
-Built to be forked, self-hosted, and modified. If it helps you remember more, share it with a study buddy.
+---
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+<p align="center">
+  <sub>Built for people who want to learn, not manage a system.</sub>
+</p>

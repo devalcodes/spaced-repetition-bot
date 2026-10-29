@@ -341,7 +341,7 @@ def _fallback_reply(
         ]
         for item in schedule:
             lines.append(
-                f"• Day {item.get('interval_day')} — "
+                f"• Day {item.get('interval_day')}: "
                 f"{item.get('scheduled_date')}"
             )
         return "\n".join(lines)

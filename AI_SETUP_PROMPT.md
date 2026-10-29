@@ -1,10 +1,10 @@
-# ReviseBot — One-Paste AI Setup Prompt
+# ReviseBot AI Setup Prompt
 
 This file is for someone who wants an AI coding agent to install and launch ReviseBot for them.
 
 ## How to use it
 
-1. Download or clone this repository and open the **project folder** in an AI coding tool that has terminal and file access — Claude Code, Codex, Cursor, Windsurf, DeepSeek Harness, etc.
+1. Download or clone this repository and open the **project folder** in an AI coding tool that has terminal and file access: Claude Code, Codex, Cursor, Windsurf, DeepSeek Harness, etc.
 2. Open `AI_SETUP_PROMPT.md` and copy everything inside the box below.
 3. Paste it into the agent and send it.
 4. The agent will ask for your Telegram token and LLM key once, put them in `.env`, install the bot, test it, and guide you through going live.
@@ -77,7 +77,7 @@ Do not add `seed_demo` to the public command menu because it replaces saved topi
 
 Ask me to choose one provider and supply its API key. Use the latest available **DeepSeek Flash** model for the DeepSeek options.
 
-### Option A — DeepSeek direct (default)
+### Option A: DeepSeek direct (default)
 
 ```env
 LLM_BASE_URL=https://api.deepseek.com
@@ -87,7 +87,7 @@ LLM_API_KEY=<my DeepSeek key>
 
 Get a key from `https://platform.deepseek.com/api_keys`. If the API returns `401 invalid api key`, stop retrying and ask me for a fresh key. Never loop on a bad key.
 
-### Option B — OpenRouter
+### Option B: OpenRouter
 
 ```env
 LLM_BASE_URL=https://openrouter.ai/api/v1
@@ -97,7 +97,7 @@ LLM_API_KEY=<my OpenRouter key>
 
 If that slug is no longer current when you run this, inspect OpenRouter's model list and use the newest DeepSeek Flash slug. Confirm the chosen model supports tool/function calling before proceeding.
 
-### Option C — Another OpenAI-compatible provider
+### Option C: Another OpenAI-compatible provider
 
 Use my supplied base URL, model, and key. Examples:
 
@@ -245,8 +245,8 @@ Ask me to open the bot and press Start. Then verify:
 1. `/start` returns the welcome message.
 2. `/today` returns either today's revision list or a clear "nothing due" message.
 3. `/schedule` returns saved topics with all four revision dates.
-4. I send a text such as: `I studied photosynthesis today — plants use sunlight, water and CO2 to make glucose and release oxygen.`
-5. The bot proposes a 3–4 word title and asks for confirmation.
+4. I send a text such as: `I studied photosynthesis today. Plants use sunlight, water and CO2 to make glucose and release oxygen.`
+5. The bot proposes a 3 to 4 word title and asks for confirmation.
 6. I reply `yes`.
 7. The bot confirms the exact Day 1, Day 3, Day 7, and Day 21 dates.
 8. The SQLite database contains one topic and exactly four revision rows, dated `studied_date + 1`, `+3`, `+7`, and `+21` days.
@@ -259,7 +259,7 @@ Inspect the database after each step to confirm the bot actually saved what it c
 
 Choose the option that fits my environment and ask before installing a system service.
 
-### Linux VPS — systemd
+### Linux VPS: systemd
 
 Create a unit like `/etc/systemd/system/revisebot.service`, replacing paths and user:
 
@@ -290,11 +290,11 @@ sudo systemctl enable --now revisebot
 sudo systemctl status revisebot
 ```
 
-### Windows — Task Scheduler or NSSM
+### Windows: Task Scheduler or NSSM
 
 Ask whether I want Task Scheduler or NSSM. Configure the bot to start at login/boot with the `.venv` Python executable and the project folder as the working directory. Point logs to a file so failures are visible.
 
-### macOS — launchd
+### macOS: launchd
 
 Create a user LaunchAgent that runs `.venv/bin/python main.py` in the project directory and keeps it alive.
 
