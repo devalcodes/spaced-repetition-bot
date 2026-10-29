@@ -56,7 +56,7 @@ The agent will find the project, guide you through creating a Telegram bot with 
 ### 1. Clone and install
 
 ```bash
-git clone <YOUR_REPOSITORY_URL> spaced-repetition-bot
+git clone https://github.com/devalcodes/spaced-repetition-bot.git
 cd spaced-repetition-bot
 
 python -m venv .venv
