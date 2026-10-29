@@ -1,14 +1,14 @@
 # ReviseBot
 
 <p align="center">
-  <img src="assets/banner.png" alt="ReviseBot, a spaced repetition Telegram bot" width="100%">
+  <img src="assets/banner.jpg" alt="ReviseBot, a spaced repetition Telegram bot" width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/devalcodes/spaced-repetition-bot"><img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white"></a>
   <a href="https://core.telegram.org/bots/api"><img alt="Telegram Bot" src="https://img.shields.io/badge/Telegram-Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white"></a>
-  <img alt="Local Whisper" src="https://img.shields.io/badge/STT-Local%20Whisper-34D399?style=for-the-badge">
-  <img alt="DeepSeek V4.1 Flash" src="https://img.shields.io/badge/Brain-DeepSeek%20V4.1%20Flash-8B5CF6?style=for-the-badge">
+  <img alt="Local Whisper" src="https://img.shields.io/badge/STT-Local%20Whisper-C9F84A?style=for-the-badge&labelColor=0B0B0A">
+  <img alt="DeepSeek V4.1 Flash" src="https://img.shields.io/badge/Brain-DeepSeek%20V4.1%20Flash-0B0B0A?style=for-the-badge&labelColor=C9F84A">
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge"></a>
 </p>
 
@@ -39,7 +39,7 @@ No dashboard. No manual scheduling. No 21 separate notifications.
 ## See it in action
 
 <p align="center">
-  <img src="assets/preview.png" alt="ReviseBot conversation and morning digest" width="100%">
+  <img src="assets/preview.jpg" alt="ReviseBot conversation and morning digest" width="100%">
 </p>
 
 One conversation creates the whole revision cycle. One message each morning tells you what to revisit.
@@ -49,7 +49,7 @@ One conversation creates the whole revision cycle. One message each morning tell
 ## The 1-3-7-21 method
 
 <p align="center">
-  <img src="assets/cycle.png" alt="The 1, 3, 7 and 21-day revision curve" width="100%">
+  <img src="assets/cycle.jpg" alt="The 1, 3, 7 and 21-day revision curve" width="100%">
 </p>
 
 The Ebbinghaus forgetting curve shows that memory drops fastest right after learning. A review placed just before the drop interrupts that forgetting.
